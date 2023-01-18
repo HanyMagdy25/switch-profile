@@ -2,11 +2,12 @@ import "./Home.css";
 import profileImg from "../../assets/profile.jpg";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-function Home() {
+function Home({userId,setUserId}) {
   const param = useParams();
   const [userData, setuserData] = useState({});
   const [userAccounts, setuserAccounts] = useState({});
   const [loading, setLoading] = useState(true);
+  console.log("66 userId",userId)
 
   useEffect(() => {
     fetch(
@@ -27,8 +28,9 @@ function Home() {
         setLoading(false);
         setuserData(data?.data);
         setuserAccounts(data?.accounts);
+        setUserId(data?.data?.id);
       });
-  }, [param.id]);
+  }, [param.id, setUserId]);
   return (
     <>
       {loading ? (
