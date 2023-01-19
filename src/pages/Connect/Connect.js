@@ -4,7 +4,7 @@ import { BsTelephone } from "react-icons/bs";
 import { MdOutlineMessage } from "react-icons/md";
 import { AiOutlineMail, AiOutlineIdcard } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Connect({ userId }) {
   const [name, setName] = useState("");
@@ -12,46 +12,61 @@ function Connect({ userId }) {
   const [title, setTitle] = useState("");
   const [phone, setPhone] = useState("");
   const [text, setText] = useState("");
-  const [done, setDone] = useState("");
+
   // console.log(userId)
 
+  // let token = document.head.querySelector('meta[name="csrf-token"]');
+
+  // let token = document
+  //   .querySelector('meta[name="csrf-token"]')
+  //   .getAttribute("content");
+
   const handleContact = (e) => {
+    // console.log("666",`${csrf_token()}`)
     e.preventDefault();
-    const blog = { name, phone, content: text, email, title };
+    // const blog = { name, phone, content: text, email, title };
 
     // console.log("blog",blog)
     fetch(
-      `https://switch.technomasrsystems.com/api/sendmessage?name=${name},phone=${phone},content=${text},email=${email},`,
+      "https://switch.technomasrsystems.com/api/sendmessage?" +
+        new URLSearchParams({
+          name: name,
+          phone: phone,
+          content: text,
+          email: email,
+          title: title,
+        }),
       {
-        method: "GET",
-        // body: JSON.stringify(blog),
         headers: {
-          "Accept-Language": "application/json",
+          "Content-Type": "application/json",
           lang: "en",
           user: userId,
-          // blog: JSON.stringify(blog),
         },
       }
     )
       .then((data) => data.json())
       .then((res) => {
-        setDone(res.status);
+        // setDone(res.status);
+        alert(res.message);
         console.log("res", res);
-        if (res.status === "success") {
+        if (res.status === true) {
           setName("");
           setText("");
           setPhone("");
           setEmail("");
+          setTitle("");
         }
       });
   };
+
+  // let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
   return (
     <div className="connect">
       <div>
         <h1>Switch</h1>
         <h2>Exchange Your Contact With Switch</h2>
       </div>
-      <form onSubmit={handleContact}>
+      <form method="POST" onSubmit={handleContact}>
         <div className="input-div">
           <span className="flex-center">
             <FiUser />
@@ -59,6 +74,7 @@ function Connect({ userId }) {
           <input
             type="text"
             placeholder="Full Name"
+            value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </div>
@@ -69,6 +85,7 @@ function Connect({ userId }) {
           <input
             type="email"
             placeholder="Email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -79,6 +96,7 @@ function Connect({ userId }) {
           <input
             type="text"
             placeholder="Title"
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
@@ -89,6 +107,7 @@ function Connect({ userId }) {
           <input
             type="tel"
             placeholder="Phone"
+            value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
         </div>
@@ -99,6 +118,7 @@ function Connect({ userId }) {
           <input
             type="text"
             placeholder="Message"
+            value={text}
             onChange={(e) => setText(e.target.value)}
           />
         </div>

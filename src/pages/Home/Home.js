@@ -2,6 +2,7 @@ import "./Home.css";
 import profileImg from "../../assets/profile.jpg";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Spinner from "../../components/Spinner/Spinner";
 function Home({userId,setUserId}) {
   const param = useParams();
   const [userData, setuserData] = useState({});
@@ -34,7 +35,7 @@ function Home({userId,setUserId}) {
   return (
     <>
       {loading ? (
-        <div>loading</div>
+        <Spinner/>
       ) : (
         <div className="home">
           <div className="cover-image">
