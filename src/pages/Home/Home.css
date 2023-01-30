@@ -1,6 +1,6 @@
 .home {
   width: 550px;
-  margin-top: 30px;
+  margin-top: 20px;
   text-align: center;
 }
 .cover-image {
@@ -82,4 +82,15 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.home__logo{
+  height: 150px;
+  width: 100%;
+  
+}
+.home__logo img{
+  height: 150px;
+  width: 150px;
+  object-fit: contain;
 }

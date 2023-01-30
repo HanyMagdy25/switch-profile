@@ -1,5 +1,5 @@
 import "./Home.css";
-import profileImg from "../../assets/profile.jpg";
+import logo from "../../assets/logo.png"
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Spinner from "../../components/Spinner/Spinner";
@@ -8,7 +8,7 @@ function Home({userId,setUserId}) {
   const [userData, setuserData] = useState({});
   const [userAccounts, setuserAccounts] = useState({});
   const [loading, setLoading] = useState(true);
-  console.log("66 userId",userId)
+  // console.log("66 userId",userId)
 
   useEffect(() => {
     fetch(
@@ -25,7 +25,7 @@ function Home({userId,setUserId}) {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setLoading(false);
         setuserData(data?.data);
         setuserAccounts(data?.accounts);
@@ -38,8 +38,12 @@ function Home({userId,setUserId}) {
         <Spinner/>
       ) : (
         <div className="home">
+          <div className="home__logo flex-center">
+            <img src={logo} alt="logo"/>
+            
+          </div>
           <div className="cover-image">
-            <img src={profileImg} alt="CoverImage" />
+            <img src={userData.background_image} alt="CoverImage" />
           </div>
 
           <div className="home__content">
